@@ -31,9 +31,11 @@ Se aplicco el uso de streams, sobre esta lista (historial del consumo del servic
 
 Para exponer las soluciones se debe ejecutar la aplicacion como "Srping boot app" y acceder a las siguiente url:
 
-* Punto 1, http://localhost:8080/api/btc/price/timestamp *que dece consultar
-* Punto 2, http://localhost:8080/api/btc/avarage/tiemestamp(desde)/timestamp(hasta)
+* Punto 1, http://localhost:8080/api/btc/price/timestamp
+ejemplo: http://localhost:8080/api/btc/price/2020-12-28%2010:45:29
 
+* Punto 2, http://localhost:8080/api/btc/avarage/tiemestamp(desde)/timestamp(hasta)
+ejemplo: http://localhost:8080/api/btc/avarage/2020-12-28%2010:45:29/2020-12-28%2010:48:35
 
 
 
