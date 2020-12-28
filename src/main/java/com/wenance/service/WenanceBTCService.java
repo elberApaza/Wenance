@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.google.gson.Gson;
+import com.wenance.dto.BTCResponceAvarageTimeDTO;
 import com.wenance.dto.BTCResponcePriceTimeDTO;
 import com.wenance.dto.BTCResponseClientDTO;
 import com.wenance.pojo.BTCData;
@@ -25,14 +26,16 @@ public class WenanceBTCService {
 
 //	Lista de los BTC que se consumen
 	private final List<BTCData> historyBTC = new ArrayList<BTCData>();
+
 	// private WenanceClient wenanceClient;
 
 	// Obtengo bitcoin y genero un historial
 	public void getBTC() {
 
+//		problemas con el client
 //		String btcDataString = wenanceClient.getLastPriceBTCUSD();
 
-//		problemas con el client tuve que aplicar lo siguiente para poder consumir el servicio
+//		 tuve que aplicar lo siguiente para poder consumir el servicio
 		RestTemplate restTemplate = new RestTemplate();
 		String url = "https://cex.io/api/last_price/BTC/USD";
 		HttpHeaders headers = new HttpHeaders();
@@ -67,6 +70,29 @@ public class WenanceBTCService {
 		btcResponcePriceTimeDTO.setCurr2(btcData.getCurr2());
 
 		return btcResponcePriceTimeDTO;
+	}
+
+//	2. Conocer el promedio de valor entre dos timestamps así como la diferencia porcentual entre ese valor promedio 
+//	y el valor máximo almacenado para toda la serie temporal disponible
+	public BTCResponceAvarageTimeDTO getBTCAvarageTime(String sDateFrom, String sDateTo) {
+		BTCResponceAvarageTimeDTO btcResponceAvarageTimeDTO = new BTCResponceAvarageTimeDTO();
+
+		Date dateFrom = Utils.convertStringToDate(sDateFrom, "yyyy-MM-dd HH:mm:ss");
+		Date dateTo = Utils.convertStringToDate(sDateTo, "yyyy-MM-dd HH:mm:ss");
+
+		double avarage = this.averageBTC(dateFrom, dateTo);
+		double maxBTCPrice = this.maxValueBTC();
+
+		double change = ((avarage - maxBTCPrice) / maxBTCPrice) * 100;
+
+		btcResponceAvarageTimeDTO.setDateFrom(sDateFrom);
+		btcResponceAvarageTimeDTO.setDateTo(sDateTo);
+		btcResponceAvarageTimeDTO.setAvarage(String.format("%.2f", avarage));
+		btcResponceAvarageTimeDTO.setChange(String.format("%.2f", change) + "%");
+		btcResponceAvarageTimeDTO.setCurr1("BTC");
+		btcResponceAvarageTimeDTO.setCurr2("USD");
+
+		return btcResponceAvarageTimeDTO;
 	}
 
 	public void addHistory(BTCData btcData) {
@@ -105,7 +131,6 @@ public class WenanceBTCService {
 		}
 	}
 
-	
 	private double convertToDoubleBTC(BTCData btcData) {
 		return Double.valueOf(btcData.getLprice());
 	}
@@ -123,7 +148,7 @@ public class WenanceBTCService {
 		return data.getDateRequest().after(dateFrom) && data.getDateRequest().before(dateTo);
 
 	}
-	
+
 	public BTCData mapBTCData(BTCResponseClientDTO btcResponseClientDTO) {
 		BTCData btcData = new BTCData();
 
