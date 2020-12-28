@@ -27,7 +27,15 @@ springboot 2.2.1
 y se uso tambien lombok.
 
 Para resolver el problema planteado se creo un historial que se carga cada 10 segundo gracias a @Scheduled. 
+Se aplicco el uso de streams, sobre esta lista (historial del consumo del servicio)para poder obtener el bitcoin en cierto timestamp, para hacer el promedio, sacar el maximo valor almacenado y la diferencia porcentual.
 
-despues a través de un servicio se aplica la logia, mediante streams, sobre esta lista para poder obtener el bitcoin en cierto timestamp, para hacer el promedio y sacar el maximo valor almacenado.
+Para exponer las soluciones se debe ejecutar la aplicacion como "Srping boot app" y acceder a las siguiente url:
+
+* Punto 1, http://localhost:8080/api/btc/price/timestamp *que dece consultar
+* Punto 2, http://localhost:8080/api/btc/avarage/tiemestamp(desde)/timestamp(hasta)
+
+
+
+
 
 
