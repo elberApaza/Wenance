@@ -21,6 +21,13 @@ Puntos extras si:
 
 ****************************************************************************************************************************************************************************
 
-Esta api rest, se realizo en java 8, con springboot 2.2.1 y lombok.
+Esta api rest, se realizo en:
+java 8
+springboot 2.2.1
+y se uso tambien lombok.
 
-Para resolver el problema 
+Para resolver el problema planteado se creo un historial que se carga cada 10 segundo gracias a @Scheduled. 
+
+despues a través de un servicio se aplica la logia, mediante streams, sobre esta lista para poder obtener el bitcoin en cierto timestamp, para hacer el promedio y sacar el maximo valor almacenado.
+
+
