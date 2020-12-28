@@ -1,23 +1,35 @@
 package com.wenance.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.wenance.dto.BTCResponceDTO;
+import com.wenance.dto.BTCResponcePriceTimeDTO;
+import com.wenance.service.WenanceBTCService;
+
+import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping(path = "/api")
+@RequiredArgsConstructor
+@RequestMapping("/api")
 public class WenanceController {
 	
+	private final WenanceBTCService wenanceBTCService;
 	
-//	@GetMapping(path = "/obtenerBTC/${fecha}")
-//	public BTCResponceDTO getObtenetBTC(String fecha) {
+
+	@GetMapping("/btc/price/{date}")
+	public BTCResponcePriceTimeDTO getObtenerBTC(@PathVariable final String date) {
+		
+		return wenanceBTCService.getBTCForTime(date);
+	}
+	
+//	@GetMapping("/obtenerBTC/${dateString}")
+//	public BTCResponcePriceTimeDTO getObtenetBTC(@PathVariable(value="dateString") String dateString) {
 //		
-//		BTCResponceDTO btcResponce = new BTCResponceDTO();
+//		return wenanceBTCService.getBTCForTime(dateString);
 //		
-//		
-//		
-//		return btcResponce;
 //	}
+	
 }

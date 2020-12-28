@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class BTCData {
 	
-	private String lprice;
+	private double lprice;
 	
 	private String curr1;
 	

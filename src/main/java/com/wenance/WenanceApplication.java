@@ -8,15 +8,15 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
-import com.wenance.service.BTCHistoryService;
+import com.wenance.service.WenanceBTCService;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @EnableFeignClients
-@EnableScheduling
-@Configuration
 @SpringBootApplication
+@Configuration
+@EnableScheduling
 public class WenanceApplication {
 
 	public static void main(String[] args) {
@@ -24,7 +24,7 @@ public class WenanceApplication {
 	}
 	
 	@Autowired
-	private BTCHistoryService btcHitoryService;
+	private WenanceBTCService btcHitoryService;
 	
     @Scheduled(fixedRateString = "${frequency-get}")
     public void getBitcoin() {
