@@ -18,18 +18,15 @@ public class WenanceController {
 	
 	private final WenanceBTCService wenanceBTCService;
 	
-
+//	1. Obtener el precio del bitcoin en cierto timestamp.
 	@GetMapping("/btc/price/{date}")
 	public BTCResponcePriceTimeDTO getObtenerBTC(@PathVariable final String date) {
 		
 		return wenanceBTCService.getBTCForTime(date);
 	}
 	
-//	@GetMapping("/obtenerBTC/${dateString}")
-//	public BTCResponcePriceTimeDTO getObtenetBTC(@PathVariable(value="dateString") String dateString) {
-//		
-//		return wenanceBTCService.getBTCForTime(dateString);
-//		
-//	}
-	
+//	2. Conocer el promedio de valor entre dos timestamps así como la diferencia porcentual entre ese valor promedio 
+//	y el valor máximo almacenado para toda la serie temporal disponible.
+//	@GetMapping("btc/price/{dateFrom}/{dateTo}")
+//	public
 }
